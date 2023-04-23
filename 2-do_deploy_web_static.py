@@ -12,34 +12,34 @@ env.hosts = ['18.234.80.200', '3.83.18.58']
 env.user = 'ubuntu'
 env.key_filename = '~/.ssh/school'
 
+
 def do_deploy(archive_path):
     """Distributes an archive to your web servers."""
-    
+
     if os.path.isfile(archive_path) is False:
         return False
     try:
         archive = archive_path.split("/")[-1]
-        time_stamp = archive.split(".")[0]
+        t_stamp = archive.split(".")[0]
         path = "/data/web_static/releases/"
 
         # Upload archive to web server
         put(archive_path, '/tmp/')
- 
+
         # Creating target directory.
-        run('sudo mkdir -p {}{}/'.format(path, time_stamp))
+        run('sudo mkdir -p {}{}/'.format(path, t_stamp))
 
         # Uncompressing and deleting the archive to the newly created folder.
-        run('sudo tar -xzf /tmp/{} -C {}{}/'.format(archive, path, time_stamp))
+        run('sudo tar -xzf /tmp/{} -C {}{}/'.format(archive, path, t_stamp))
         run('sudo rm /tmp/{}'.format(archive))
-        run('sudo mv {0}{1}/web_static/* {0}{1}/'.format(path, time_stamp))
-        run('sudo rm -rf {}{}/web_static'.format(path, time_stamp))
-        
+        run('sudo mv {0}{1}/web_static/* {0}{1}/'.format(path, t_stamp))
+        run('sudo rm -rf {}{}/web_static'.format(path, t_stamp))
+
         # Deleting symbolic link from the web server
         run('sudo rm -rf /data/web_static/current')
-        
-        # Creating new symbolic link
-        run('sudo ln -s {}{}/ /data/web_static/current'.format(path, time_stamp))
-        return True
-    except:
-        return False
 
+        # Creating new symbolic link
+        run('sudo ln -s {}{}/ /data/web_static/current'.format(path, t_stamp))
+        return True
+    except Exception:
+        return False
