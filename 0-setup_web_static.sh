@@ -53,7 +53,8 @@ echo "<html>
   <head>
   </head>
   <body>
-    Holberton School
+    <h1>Hello World!</h1>
+    <p>This is a test</p>
   </body>
 </html>" > /data/web_static/releases/test/index.html
 
@@ -74,7 +75,7 @@ sudo echo "
 server {
      listen    80 default_server;
      listen    localhost:80;
-     listen    ibangajnr.tech:80;
+     listen    elizabettenuel.tech:80;
      root      /etc/nginx/html/;
      index     index.html index.htm;
      location  /hbnb_static/ {
